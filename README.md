@@ -44,13 +44,17 @@ The app also ships with `noindex, nofollow` meta so search engines won't index i
 
 ## Where the numbers live
 
-- `src/App.jsx` → `defaultData()` holds the program space model (room-level NSF), the ×1.45 GSF multiplier, site capacities (Sonoran = 10,062 RSF), lease rates (Sonoran $28.71/RSF/yr, Scottsdale $45/SF/yr), and the four preset scenarios.
+- `src/App.jsx` → `defaultData()` holds the program space model (room-level NSF), the ×1.45 GSF multiplier, site capacities (Sonoran = 10,062 RSF, Scottsdale = 50,000 SF), lease rates (Sonoran $28.71/RSF/yr, Scottsdale $45/SF/yr), and the four preset scenarios.
 - Everything is editable in the UI; edits persist per-browser. "Reset to defaults" restores this file's values.
+
+## Export
+
+The **⬇ Export Excel** button (top nav) downloads a clean .xlsx: scenario comparison, program space model, and sites & costs.
 
 ## Modeling rules (as implemented)
 
 - **GSF** = program NSF × multiplier (default 1.45, covering restrooms, hallways, storage, faculty offices). Anatomy is flat GSF.
-- **Surge Site** is time-shared turnkey rental driven by DPT running two cohorts' labs simultaneously (one week, three times per year): programs there count flat lab SF (no multiplier), and the site's footprint is the single largest need, not the sum. Toggle it off per scenario to model absorbing that need into a larger permanent site (e.g., taking a whole floor) — displaced programs then require full-GSF permanent space.
+- **DPT cohort overlap (5,500 SF)** — DPT runs two cohorts' labs simultaneously, one week × three times per year. Each scenario resolves it one of three ways: rent surge space (e.g., a conference center — shown as a dashed plate, separate from permanent GSF), absorb it into a permanent site (hatched block, counts against capacity), or leave it flagged Unresolved.
 - **Shared core** (per-scenario toggle): each program has a shareable % of its base NSF. Co-located sharers count the shared slice once (largest need wins); the multiplier remainder stays dedicated per program.
 - **Anatomy Lab** can be included/excluded per scenario.
 - **ARC-PA**: header counts down to Oct 1, 2027; scenarios flag when PA is unassigned or parked at an over-capacity site.
